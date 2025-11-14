@@ -1,0 +1,31 @@
+/* src/components/GlobalFooter.css */
+.global-footer {
+    background-color: #f8f9fa; /* 아주 밝은 회색으로 변경 */
+    color: #6c757d; /* 어두운 회색으로 텍스트 색상 변경 */
+    text-align: center;
+    padding: 30px 40px; /* 패딩을 좀 더 넉넉하게 조정 */
+    margin-top: auto;
+    border-top: 1px solid #e9ecef; /* 상단에 얇은 경계선 추가 */
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d; /* p 태그 색상 명시 */
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #6c757d; /* 링크 색상 변경 */
+    text-decoration: none;
+    margin: 0 10px; /* 링크 좌우 마진 추가 */
+    transition: color 0.2s ease-in-out;
+}
+
+.footer-links a:hover {
+    color: #343a40; /* 호버 시 색상 진하게 변경 */
+    text-decoration: underline;
+}
