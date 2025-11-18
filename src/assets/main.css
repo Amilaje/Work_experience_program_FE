@@ -1,0 +1,247 @@
+/* src/assets/main.css */
+
+/* --- Contents from App.css --- */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.main-content {
+  flex: 1; /* 남은 공간을 모두 차지하도록 설정 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* --- Contents from components/GlobalHeader.css --- */
+.global-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+    position: relative; /* For positioning the mobile menu */
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.logo-main {
+    background: linear-gradient(to right, #4A90E2, #00C6FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.logo-separator {
+    font-size: 1.5rem;
+    color: #AAAAAA;
+    margin: 0 10px;
+    font-weight: 300;
+}
+
+.logo-kt-img {
+    height: 28px; /* KT 로고 이미지 높이 조정 */
+}
+
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #333333;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 5px 0; /* Add padding for better touch targets */
+}
+
+.nav-menu li a:hover,
+.nav-menu li a.active {
+    background: linear-gradient(to right, #4A90E2, #00C6FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
+.hamburger-menu {
+    display: none; /* Hide by default */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.hamburger-menu span {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 5px;
+    transition: all 0.3s linear;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .global-header {
+        padding: 20px;
+        flex-wrap: wrap;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .nav-menu {
+        display: none;
+        width: 100%;
+    }
+
+    .nav-menu.active {
+        display: block;
+        position: absolute;
+        top: 80px; /* Adjust based on header height */
+        left: 0;
+        background-color: white;
+        width: 100%;
+        border-top: 1px solid #eaeaea;
+        padding: 20px 0;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* --- Contents from components/GlobalFooter.css --- */
+.global-footer {
+    background-color: #f8f9fa; /* 아주 밝은 회색으로 변경 */
+    color: #6c757d; /* 어두운 회색으로 텍스트 색상 변경 */
+    text-align: center;
+    padding: 30px 40px; /* 패딩을 좀 더 넉넉하게 조정 */
+    margin-top: auto;
+    border-top: 1px solid #e9ecef; /* 상단에 얇은 경계선 추가 */
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d; /* p 태그 색상 명시 */
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #6c757d; /* 링크 색상 변경 */
+    text-decoration: none;
+    margin: 0 10px; /* 링크 좌우 마진 추가 */
+    transition: color 0.2s ease-in-out;
+}
+
+.footer-links a:hover {
+    color: #343a40; /* 호버 시 색상 진하게 변경 */
+    text-decoration: underline;
+}
+
+/* --- Contents from pages/Home.css --- */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px; /* 최대 너비 설정 */
+    align-items: center;
+}
+
+.home-section {
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.home-section h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #4A90E2;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* 각 섹션별 특화 스타일 (필요시 추가) */
+.centered-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0; /* 상하 여백 추가 */
+}
+
+.new-promotion-button {
+    background: linear-gradient(to right, #4A90E2, #00C6FF);
+    color: white;
+    border: none;
+    padding: 12px 24px; /* 버튼 크기 살짝 키움 */
+    border-radius: 8px; /* 둥근 모서리 */
+    cursor: pointer;
+    font-size: 1.1rem; /* 폰트 크기 살짝 키움 */
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4); /* 그림자 효과 추가 */
+}
+
+.new-promotion-button:hover {
+    transform: translateY(-2px); /* 호버 시 살짝 위로 이동 */
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.5); /* 그림자 강화 */
+}
+
+#recent-promotions ul {
+    list-style: none;
+    padding: 0;
+}
+
+#recent-promotions li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        gap: 20px;
+    }
+}

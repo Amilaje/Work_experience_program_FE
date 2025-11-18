@@ -1,5 +1,4 @@
 import React from 'react';
-import './GlobalFooter.css';
 
 const GlobalFooter: React.FC = () => {
   return (

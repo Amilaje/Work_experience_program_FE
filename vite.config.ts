@@ -10,4 +10,17 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+      '/ai-api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/ai-api/, '/api'), // /ai-api/knowledge -> /api/knowledge
+      },
+    },
+  },
 })

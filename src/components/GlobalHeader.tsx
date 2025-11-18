@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import './GlobalHeader.css';
-import ktLogo from '../assets/kt_logo.png'; // kt 로고 이미지 임포트
+import { NavLink } from 'react-router-dom';
+import ktLogo from '../assets/KT_Logo.png';
 
 const GlobalHeader: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    // 현재 경로를 기반으로 active 클래스를 동적으로 설정하기 위한 로직
-    // 지금은 react-router-dom이 없으므로 'Home'에 기본적으로 active 스타일을 적용합니다.
-    const currentPath = '/'; 
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -17,7 +13,7 @@ const GlobalHeader: React.FC = () => {
         <header className="global-header">
             <div className="logo">
                 <span className="logo-main">MAIX</span>
-                <span className="logo-separator">x</span>
+                <span className="logo-separator">|</span>
                 <img src={ktLogo} alt="KT Logo" className="logo-kt-img" />
             </div>
             <button className="hamburger-menu" onClick={toggleMenu}>
@@ -28,19 +24,19 @@ const GlobalHeader: React.FC = () => {
             <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                 <ul>
                     <li>
-                        <a href="/" className={currentPath === '/' ? 'active' : ''}>
-                            Home (대시보드)
-                        </a>
+                        <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>
+                            Home
+                        </NavLink>
                     </li>
                     <li>
-                        <a href="/promotions" className={currentPath === '/promotions' ? 'active' : ''}>
-                            프로모션 목록
-                        </a>
+                        <NavLink to="/promotion" className={({ isActive }) => isActive ? 'active' : ''}>
+                            프로모션
+                        </NavLink>
                     </li>
                     <li>
-                        <a href="/rag-db" className={currentPath === '/rag-db' ? 'active' : ''}>
+                        <NavLink to="/rag-db" className={({ isActive }) => isActive ? 'active' : ''}>
                             RAG DB 관리
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
