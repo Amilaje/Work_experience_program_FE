@@ -181,8 +181,8 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    max-width: 1200px; /* 최대 너비 설정 */
-    align-items: center;
+    max-width: 1400px; /* 최대 너비 설정 */
+    align-items: center; /* 자식 요소들을 가운데 정렬 */
 }
 
 .home-section {
@@ -190,8 +190,26 @@
     border: 1px solid #eaeaea;
     border-radius: 8px;
     padding: 20px;
-    width: 100%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    flex: 1; /* Allow flexbox to manage width */
+    min-width: 0; /* Prevent content overflow issues in flex items */
+}
+
+.dashboard-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+}
+
+.dashboard-layout > .home-section {
+    min-height: 400px;
+}
+
+@media (max-width: 992px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
 }
 
 .home-section h2 {
