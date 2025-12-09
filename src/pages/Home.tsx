@@ -203,7 +203,7 @@ const Home: React.FC = () => {
     }, []);
 
     const handleNewPromotionClick = () => {
-        navigate('/campaigns/create');
+        navigate('/promotion/create');
     };
 
     if (loading) {

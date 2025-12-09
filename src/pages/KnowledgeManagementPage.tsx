@@ -14,6 +14,7 @@ interface KnowledgeListItem {
 }
 
 interface KnowledgeDetail {
+  document: string;
   // 상세 정보에 필요한 필드를 정의합니다.
   id: string;
   metadata: {
@@ -93,6 +94,7 @@ const KnowledgeManagementPage: React.FC = () => {
       const params: any = {
         page: currentPage, // 1-based 페이지 전송
         size: pageSize,
+        sort: 'registration_date,desc', // 날짜 내림차순 정렬
       };
 
       if (filterSourceType !== 'all') {
@@ -113,9 +115,6 @@ const KnowledgeManagementPage: React.FC = () => {
         source_type: item.metadata.source_type,
         upload_date: item.metadata.registration_date,
       }));
-
-      // 날짜를 기준으로 내림차순 정렬 (클라이언트 측)
-      transformedKnowledgeBase.sort((a, b) => new Date(b.upload_date).getTime() - new Date(a.upload_date).getTime());
       
       setKnowledgeBase(transformedKnowledgeBase);
       setTotalPages(response.data.total_pages);
@@ -142,7 +141,9 @@ const KnowledgeManagementPage: React.FC = () => {
     } catch (error) {
       console.error("Error fetching knowledge detail:", error);
       setError('상세 정보를 불러오는 데 실패했습니다.');
-      setIsDetailModalOpen(false);
+      setKnowledgeDetail(null);
+    } finally {
+      setLoadingDetail(false);
     }
   };
 
