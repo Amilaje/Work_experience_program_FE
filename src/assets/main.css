@@ -263,3 +263,11 @@
         gap: 20px;
     }
 }
+
+/* --- Styles for promotion title truncation --- */
+.promotion-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 500px; /* Adjust as needed */
+}

@@ -159,7 +159,9 @@ const RecentPromotions: React.FC<{ activities: RecentActivityItem[], onNewPromot
                                 alignItems: 'center'
                             }}>
                             <div>
-                                <div style={{ fontWeight: 'bold' }}>{activity.purpose}</div>
+                                <div className="promotion-title" style={{ fontWeight: 'bold' }} title={activity.purpose}>
+                                  {activity.purpose}
+                                </div>
                                 <div style={{ fontSize: '0.9em', color: '#666' }}>{getStatusDisplayName(activity.status)}</div>
                             </div>
                             <div style={{ fontSize: '0.8em', color: '#999' }}>{new Date(activity.updatedAt).toLocaleDateString()}</div>

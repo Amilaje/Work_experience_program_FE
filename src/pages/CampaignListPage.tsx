@@ -225,11 +225,11 @@ const CampaignListPage: React.FC = () => {
 
                                             <td className="campaign-purpose-cell">
 
-                                              <Link to={`/campaign/${campaign.campaignId}`} className="campaign-link">
+                                                                                            <Link to={`/campaign/${campaign.campaignId}`} className="campaign-link" title={campaign.purpose}>
 
-                                                {campaign.purpose}
+                                                                                              {campaign.purpose}
 
-                                              </Link>
+                                                                                            </Link>
 
                                             </td>
 

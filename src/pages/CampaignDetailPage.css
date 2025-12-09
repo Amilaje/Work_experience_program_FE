@@ -1,4 +1,6 @@
 .campaign-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
   background-color: #f9faff;
 }
@@ -11,11 +13,16 @@
 }
 
 .campaign-detail-header h1 {
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 5vw, 2.2rem); /* Responsive font size */
   font-weight: 700;
   background: linear-gradient(to right, #4A90E2, #00C6FF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  
+  /* Properties for wrapping long text */
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0; /* Helps with flexbox wrapping */
 }
 
 .delete-button {
