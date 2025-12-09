@@ -297,7 +297,7 @@ const CampaignDetailPage = () => {
 
     switch (action) {
       case 'refine':
-        return ['PROCESSING', 'REFINING', 'FAILED'].includes(currentCampaign.status);
+        return ['PROCESSING', 'REFINING'].includes(currentCampaign.status);
       case 'performance':
         return ['PROCESSING', 'REFINING', 'FAILED', 'COMPLETED'].includes(currentCampaign.status);
       case 'rag':
@@ -318,6 +318,22 @@ const CampaignDetailPage = () => {
         console.error('Error deleting campaign:', err);
         alert('캠페인 삭제에 실패했습니다.');
       }
+    }
+  };
+
+  const handleRefineSubmit = async (feedbackText: string) => {
+    if (!campaignId) return;
+
+    try {
+      await axios.post(`/api/campaigns/${campaignId}/refine`, {
+        feedback_text: feedbackText,
+      });
+      alert('수정 요청이 성공적으로 전송되었습니다.');
+      setIsRefineModalOpen(false);
+      fetchCampaignDetail(); // Re-fetch data to show updated state
+    } catch (err) {
+      console.error('Error submitting refinement request:', err);
+      alert('수정 요청에 실패했습니다.');
     }
   };
 
@@ -536,19 +552,13 @@ const CampaignDetailPage = () => {
         onSubmit={handlePerformanceSubmit}
         initialActualCtr={campaign.actualCtr}
         initialConversionRate={campaign.conversionRate}
-        initialPerformanceStatus={
-          ['PROCESSING', 'REFINING', 'COMPLETED'].includes(campaign.status)
-            ? "UNDECIDED"
-            : campaign.successCase
-              ? "SUCCESS"
-              : "FAILURE"
-        }
+        initialPerformanceStatus={campaign.performanceStatus}
         initialPerformanceNotes={campaign.performanceNotes}
       />
       <RefineRequestModal
         isOpen={isRefineModalOpen}
         onClose={() => setIsRefineModalOpen(false)}
-        campaignId={campaignId!}
+        onSubmit={handleRefineSubmit}
       />
 
       <div className="page-actions-container">
