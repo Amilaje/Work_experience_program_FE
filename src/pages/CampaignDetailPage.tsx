@@ -520,7 +520,10 @@ const CampaignDetailPage = () => {
                     </div>
                   </div>
                   <div className="message-drafts-container">
-                    {group.message_results.map((result) => (
+                    {group.message_results
+                      .slice() // 정렬 전 배열 복사 (원본 상태 유지)
+                      .sort((a, b) => a.message_draft_index - b.message_draft_index) // index 기준으로 정렬
+                      .map((result) => (
                       <div key={result.result_id} className={`message-draft ${result.is_selected ? 'selected' : ''}`}>
                         <div>
                           <div className="message-header">
