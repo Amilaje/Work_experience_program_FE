@@ -147,24 +147,24 @@ const statusMap: { [key: string]: string } = {
   MESSAGE_SELECTED: '메시지 선택 완료',
   PERFORMANCE_REGISTERED: '성과 등록 완료',
   SUCCESS_CASE: '성공 사례 지정',
-  RAG_REGISTERED: 'RAG DB 등록 완료',
+  RAG_REGISTERED: 'AI 학습완료',
 };
 
 const getRagButtonTooltip = (campaign: CampaignDetail): string => {
   if (campaign.status === 'RAG_REGISTERED') {
-    return "이미 RAG DB에 등록된 캠페인입니다.";
+    return "이미 학습된 캠페인입니다.";
   }
   if (campaign.performanceStatus === "UNDECIDED") {
-    return "미정 상태의 캠페인은 RAG DB에 등록할 수 없습니다.";
+    return "미정 상태의 캠페인은 학습에 사용할 수 없습니다.";
   }
   if (campaign.performanceStatus === "SUCCESS") {
-    return "이 캠페인을 '성공 사례'로 RAG DB에 저장합니다.";
+    return "이 캠페인을 '성공 사례'로 AI 학습자료에 저장합니다.";
   }
   if (campaign.performanceStatus === "FAILURE") {
-    return "이 캠페인을 '실패 사례'로 RAG DB에 저장합니다.";
+    return "이 캠페인을 '실패 사례'로 AI 학습자료에 저장합니다.";
   }
   
-  return "RAG DB에 반영하려면 성과 등록을 완료해야 합니다.";
+  return "AI 학습자료에 등록하려면 성과 등록을 완료해야 합니다.";
 };
 
 const getPerformanceButtonText = (status: string): string => {
@@ -179,7 +179,7 @@ const getPerformanceButtonTooltip = (status: string): string => {
     return "메시지 생성 완료 후 성과 등록이 가능합니다.";
   }
   if (status === 'RAG_REGISTERED') {
-    return "이미 RAG DB에 등록된 캠페인입니다. 성과 수정은 가능합니다.";
+    return "이미 AI가 학습한 캠페인입니다. 성과 수정은 가능합니다.";
   }
   if (status === 'COMPLETED') {
     return "메시지 선택 후 성과 등록이 가능합니다.";
@@ -192,7 +192,7 @@ const getRefineButtonTooltip = (status: string): string => {
     return "메시지 생성 완료 후 수정 요청이 가능합니다.";
   }
   if (status === 'RAG_REGISTERED') {
-    return "이미 RAG DB에 등록된 캠페인입니다. 수정 요청은 불가능합니다.";
+    return "이미 AI가 학습된 캠페인입니다. 수정 요청은 불가능합니다.";
   }
   return "메시지 내용, 타겟, 목적 등을 수정 요청합니다.";
 };
@@ -375,22 +375,22 @@ const CampaignDetailPage = () => {
     if (!campaign) return;
 
     if (campaign.performanceStatus === "UNDECIDED") {
-      alert("미정 상태의 캠페인은 RAG DB에 등록할 수 없습니다.");
+      alert("미정 상태의 캠페인은 AI 학습자료소 사용할 수 없습니다.");
       return;
     }
 
     const confirmMessage = campaign.performanceStatus === 'SUCCESS'
-      ? '이 캠페인을 RAG DB에 성공 사례로 반영하시겠습니까?'
-      : '이 캠페인은 "실패" 사례입니다. RAG DB에 반영하시겠습니까?'; // Updated for FAILURE
+      ? '이 캠페인을 AI에게 성공 사례로 학습시키시겠습니까?'
+      : '이 캠페인은 "실패" 사례입니다. AI 학습자료에 반영하시겠습니까?'; // Updated for FAILURE
 
     if (window.confirm(confirmMessage)) {
       try {
         await axios.post(`/api/campaigns/${campaignId}/rag-trigger`);
-        alert('RAG DB에 성공적으로 반영되었습니다.');
+        alert('AI 학습자료에 성공적으로 저장되었습니다.');
         fetchCampaignDetail(); // Re-fetch data to show updated state
       } catch (err) {
         console.error('Error triggering RAG:', err);
-        alert('RAG DB 반영에 실패했습니다.');
+        alert('AI 학습자료 저장에 실패했습니다.');
       }
     }
   };
@@ -489,7 +489,7 @@ const CampaignDetailPage = () => {
               onClick={handleRagTrigger}
               disabled={isButtonDisabled('rag', campaign)}
             >
-              RAG DB 반영
+              AI에게 사례 학습
             </button>
             <span className="tooltip-text">{getRagButtonTooltip(campaign)}</span>
           </div>

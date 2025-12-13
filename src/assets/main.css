@@ -109,45 +109,38 @@
     top: 0;
     left: 0;
     height: 100vh;
-    width: 280px;
+    width: 300px; /* Increased width for more space */
     background-color: #ffffff; /* Reverted to white */
-    border-right: 1px solid #eaeaea;
-    padding: 20px;
+    border-right: 1px solid #dbeafc;
+    padding: 15px; /* Reduced padding for more space */
     box-sizing: border-box;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     z-index: 2000;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-drawer.open {
     transform: translateX(0);
 }
 
+.drawer-header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the logo */
+    padding: 0 20px; /* Match global-header padding */
+    flex-shrink: 0; /* Prevent shrinking */
+    border-bottom: 1px solid #dbeafc; /* Separator line */
+}
+
 .nav-menu {
-    margin-top: 60px; /* Space for a header/title within the drawer if needed */
-}
-
-/* New Promotion Button in Nav Drawer */
-.new-promotion-menu-btn {
-    display: block; /* Make it block level */
-    width: calc(100% - 30px); /* Adjust for padding within nav-drawer (20px left + 20px right = 40px, so 20px for one side) */
-    margin: 10px auto; /* Center with some margin */
-    padding: 12px 15px;
-    background: linear-gradient(to right, #007bff, #0056b3); /* Blue gradient */
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
-}
-
-.new-promotion-menu-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
-    opacity: 0.9;
+    flex-grow: 1;
+    min-height: 0; /* Ensure it can shrink in flex container */
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px; /* Add space at the top */
 }
 
 .nav-menu ul {
@@ -156,13 +149,13 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 .nav-menu li a {
     text-decoration: none;
     color: #333333; /* Darker color for better contrast on white background */
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     font-weight: 500;
     padding: 12px 15px;
     border-radius: 8px;
@@ -218,22 +211,23 @@
 
 
 .new-chat-link {
-
-    font-weight: bold !important;
-
-    font-size: 1.1rem !important;
-
-    border: 1px solid #ddd;
-
+    display: block;
+    width: 100%; /* Match show-more-btn */
+    padding: 10px; /* Match show-more-btn */
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 0.9rem; /* Match show-more-btn */
     text-align: center;
-
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333333;
+    border: 1px solid #ddd; /* Add border for emphasis */
+    transition: background-color 0.2s ease;
 }
-
-
 
 .new-chat-link:hover {
 
-    background-color: #f7f7f7;
+    background-color: #f0f0f0;
 
 }
 
@@ -243,7 +237,7 @@
 
     border: none;
 
-    border-top: 1px solid #eee;
+    border-top: 1px solid #dbeafc;
 
     margin: 15px 0;
 
@@ -266,36 +260,57 @@
 
 
 .history-menu {
-
-    max-height: calc(100vh - 250px); /* Adjust as needed */
-
+    flex-grow: 1;
     overflow-y: auto;
+    min-height: 0;
     padding-right: 5px; /* Add padding to make space for scrollbar */
+}
 
+/* Custom Scrollbar for history-menu */
+.history-menu::-webkit-scrollbar {
+  width: 8px; /* Visible scrollbar */
+}
+
+.history-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.history-menu::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.history-menu::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
 }
 
 .chat-session-item {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Space out link and button */
-    /* Padding for the list item itself if needed */
+    justify-content: flex-start; /* Change to flex-start to place button next to title */
+    min-height: 40px; /* Ensure consistent height for alignment */
+    flex-wrap: nowrap; /* Ensure no wrapping */
 }
 
 /* Override default NavLink padding to allow flex item control */
 .chat-session-item .chat-link-text {
     flex-grow: 1; /* Allow link to take available space */
-    margin-right: 5px; /* Space between link text and delete button */
-    padding: 8px 15px; /* Restore padding for the NavLink text part */
+    margin-right: 0; /* Removed margin for more space */
+    padding: 8px 6px; /* Further reduced padding */
     text-decoration: none;
     color: #333333;
     font-size: 1rem; /* Specific font size for history items */
     font-weight: 500;
     border-radius: 8px;
-    display: block;
+    display: flex; /* Make NavLink a flex container */
+    justify-content: flex-start; /* Place title and button next to each other */
+    align-items: center; /* Center vertically */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%; /* Full width */
     transition: background-color 0.2s ease, color 0.2s ease;
+    line-height: 1.2; /* Ensure vertical centering */
 }
 
 .chat-session-item .chat-link-text:hover {
@@ -309,11 +324,19 @@
     font-weight: 700;
 }
 
+.chat-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem; /* Reduce font size for a more compact look */
+}
+
 .delete-session-btn {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px; /* Small padding around the icon */
+    padding: 2px; /* Further reduced padding */
     display: flex; /* To center SVG */
     align-items: center;
     justify-content: center;
@@ -321,7 +344,6 @@
     transition: background-color 0.2s ease;
     flex-shrink: 0; /* Prevent button from shrinking */
     line-height: 0; /* Remove extra line height from button */
-    margin-left: auto; /* Push button to the right */
 }
 
 .delete-session-btn:hover {
@@ -348,6 +370,13 @@
 }
 
 
+
+
+.loading-indicator {
+    padding: 10px;
+    text-align: center;
+    color: #666;
+}
 
 .show-more-btn {
 

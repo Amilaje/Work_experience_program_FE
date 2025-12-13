@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { BarChart3, Database, TrendingUp, Sparkles } from 'lucide-react';
 import ktLogo from '../assets/KT_Logo.png';
 
 interface ChatSession {
@@ -101,6 +102,8 @@ const GlobalHeader: React.FC = () => {
     
     const canShowMore = !isLoading && (page < totalPages - 1) && sessions.length < MAX_SESSIONS;
 
+    const isPromotionActive = location.pathname.startsWith('/promotion') && location.pathname !== '/promotion/create';
+
 
     return (
         <>
@@ -120,49 +123,72 @@ const GlobalHeader: React.FC = () => {
             </header>
 
             <aside className={`nav-drawer ${isMenuOpen ? 'open' : ''}`}>
-                <nav className="nav-menu">
-                    <Link to="/promotion/create" className="new-promotion-menu-btn" onClick={closeMenu}>
-                        + 새 프로모션 만들기
+                <div className="drawer-header">
+                    <Link to="/" className="logo-link" onClick={closeMenu}>
+                        <div className="logo">
+                            <span className="logo-main">MAIX</span>
+                            <span className="logo-separator">|</span>
+                            <img src={ktLogo} alt="KT Logo" className="logo-kt-img" />
+                        </div>
                     </Link>
+                </div>
+                <nav className="nav-menu">
                     <ul className="static-menu">
                          <li>
-                            <NavLink to="/promotion" onClick={closeMenu}>프로모션</NavLink>
+                            <NavLink to="/promotion/create" onClick={closeMenu}>
+                                <Sparkles size={16} style={{ marginRight: '8px' }} />
+                                직접 프로모션 형성하기
+                            </NavLink>
                          </li>
                          <li>
-                            <NavLink to="/rag-db" onClick={closeMenu}>AI 학습 데이터</NavLink>
+                            <NavLink
+                                to="/promotion"
+                                className={() => isPromotionActive ? 'active' : ''}
+                                onClick={closeMenu}
+                            >
+                                <BarChart3 size={16} style={{ marginRight: '8px' }} />
+                                프로모션
+                            </NavLink>
                          </li>
                          <li>
-                            <NavLink to="/marketing-status" onClick={closeMenu}>마케팅 현황</NavLink>
+                            <NavLink to="/rag-db" onClick={closeMenu}>
+                                <Database size={16} style={{ marginRight: '8px' }} />
+                                AI 학습 데이터
+                            </NavLink>
+                         </li>
+                         <li>
+                            <NavLink to="/marketing-status" onClick={closeMenu}>
+                                <TrendingUp size={16} style={{ marginRight: '8px' }} />
+                                마케팅 현황
+                            </NavLink>
                          </li>
                     </ul>
                     <hr className="menu-divider" />
+                    <NavLink to="/" className="new-chat-link" onClick={closeMenu}>
+                        새 채팅
+                    </NavLink>
                     <ul className="history-menu">
-                        <li>
-                            <NavLink to="/" className="new-chat-link" onClick={closeMenu}>
-                                ＋ 새 채팅
-                            </NavLink>
-                        </li>
                         {sessions.map(session => (
                             <li key={session.conversationId} className="chat-session-item">
                                 <NavLink to={`/chat/${session.conversationId}`} className={({ isActive }) => isActive ? 'active chat-link-text' : 'chat-link-text'} onClick={closeMenu}>
-                                    {session.title}
+                                    <span className="chat-title">{session.title}</span>
+                                    <button
+                                        className="delete-session-btn"
+                                        onClick={(e) => handleDeleteSession(session.conversationId, e)}
+                                        aria-label={`Delete conversation ${session.title}`}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash-2">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                    </button>
                                 </NavLink>
-                                <button
-                                    className="delete-session-btn"
-                                    onClick={(e) => handleDeleteSession(session.conversationId, e)}
-                                    aria-label={`Delete conversation ${session.title}`}
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash-2">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                    </svg>
-                                </button>
                             </li>
                         ))}
-                        {isLoading && <li><p>로딩 중...</p></li>}
                     </ul>
+                    {isLoading && <div className="loading-indicator"><p>로딩 중...</p></div>}
                     {canShowMore && (
                         <button onClick={handleShowMore} className="show-more-btn">
                             더보기 ↓
