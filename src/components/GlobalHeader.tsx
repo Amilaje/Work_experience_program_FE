@@ -156,12 +156,6 @@ const GlobalHeader: React.FC = () => {
                                 AI 학습 데이터
                             </NavLink>
                          </li>
-                         <li>
-                            <NavLink to="/marketing-status" onClick={closeMenu}>
-                                <TrendingUp size={16} style={{ marginRight: '8px' }} />
-                                마케팅 현황
-                            </NavLink>
-                         </li>
                     </ul>
                     <hr className="menu-divider" />
                     <NavLink to="/" className="new-chat-link" onClick={closeMenu}>

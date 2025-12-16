@@ -6,7 +6,6 @@ import CampaignListPage from './pages/CampaignListPage';
 import CampaignCreationPage from './pages/CampaignCreationPage'; // 추가
 import CampaignDetailPage from './pages/CampaignDetailPage'; // 주석 해제 및 확인
 import KnowledgeManagementPage from './pages/KnowledgeManagementPage';
-import MarketingStatusPage from './pages/MarketingStatusPage';
 
 function App() {
   return (
@@ -16,7 +15,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/chat/:conversationId" element={<Home />} />
-          <Route path="/marketing-status" element={<MarketingStatusPage />} />
           <Route path="/promotion" element={<CampaignListPage />} />
           <Route path="/promotion/create" element={<CampaignCreationPage />} /> {/* 추가 */}
           <Route path="/campaign/:campaignId" element={<CampaignDetailPage />} /> {/* campaign_id를 campaignId로 변경 */}
